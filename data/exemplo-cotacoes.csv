@@ -1,0 +1,46 @@
+Data,Cliente,Responsável,Status,Valor,Primeira Resposta,Cotação Enviada,Pedido,Assunto,Descrição
+2023-10-01 09:00,Hospital Alpha,Mariana,Pedido,1500.00,2023-10-01 09:15,2023-10-01 10:30,PED-101,Cotação de Luvas,Solicitação de 100 caixas de luvas nitrílicas.
+2023-10-01 10:00,Clínica Sorriso,Carlos,Respondida,450.00,2023-10-01 11:30,2023-10-01 14:00,,Kit Odontológico,Cotação para kits de resina e espelhos.
+2023-10-01 11:30,Santa Casa,Mariana,Pendente,2800.00,2023-10-01 12:00,,,Material Cirúrgico,Gaze estéril e fios de sutura.
+2023-10-01 13:00,Hospital Beta,Ana,Respondida,12000.00,2023-10-01 13:45,2023-10-01 16:30,,Equipamento Monitor,Monitor multiparâmetros.
+2023-10-02 08:30,Lab Exame,Carlos,Pedido,3200.00,2023-10-02 08:45,2023-10-02 10:00,PED-102,Reagentes,Reagentes para exames de sangue.
+2023-10-02 09:15,Hospital Alpha,Mariana,Pendente,1200.00,2023-10-02 14:00,,,Máscaras,Máscaras N95 - 500 unidades.
+2023-10-02 10:45,Clínica Life,Ana,Pedido,800.00,2023-10-02 11:00,2023-10-02 11:30,PED-103,Termômetros,Termômetros infravermelho.
+2023-10-02 14:00,Hospital Delta,Carlos,Atrasada,5000.00,,,,Manutenção,Peças para autoclave.
+2023-10-03 09:00,Santa Casa,Mariana,Respondida,150.00,2023-10-03 12:00,2023-10-03 15:30,,Papel A4,Papel para impressora de exames.
+2023-10-03 10:30,Hospital Alpha,Ana,Pedido,9500.00,2023-10-03 10:45,2023-10-03 12:00,PED-104,Cama Hospitalar,Cama elétrica motorizada.
+2023-10-03 13:15,Clínica Sorriso,Carlos,Pendente,600.00,2023-10-03 14:00,,,Descartáveis,Copos e toucas descartáveis.
+2023-10-04 08:00,Lab Exame,Mariana,Respondida,2100.00,2023-10-04 09:30,2023-10-04 11:00,,Centrífuga,Manutenção de centrífuga de laboratório.
+2023-10-04 11:00,Hospital Beta,Ana,Pedido,3000.00,2023-10-04 11:15,2023-10-04 13:00,PED-105,Seringas,10.000 seringas 5ml.
+2023-10-04 15:30,Hospital Delta,Carlos,Pendente,7500.00,2023-10-04 16:00,,,Desfibrilador,Cotação para 2 desfibriladores externos.
+2023-10-05 09:45,Clínica Life,Mariana,Respondida,400.00,2023-10-05 10:30,2023-10-05 12:00,,Luvas,Luvas de procedimento.
+2023-10-05 11:00,Santa Casa,Ana,Atrasada,1200.00,,,,Soro Fisiológico,Lote de soro 500ml.
+2023-10-05 14:20,Hospital Alpha,Carlos,Pedido,2500.00,2023-10-05 14:45,2023-10-05 16:00,PED-106,Álcool em Gel,Bombonas de 5L.
+2023-10-06 08:30,Lab Exame,Mariana,Respondida,550.00,2023-10-06 09:00,2023-10-06 10:30,,Tubos Coleta,Tubos de vácuo.
+2023-10-06 10:00,Hospital Beta,Ana,Pendente,4200.00,2023-10-06 11:00,,,Macas,Maca de transporte.
+2023-10-06 13:45,Clínica Sorriso,Carlos,Pedido,180.00,2023-10-06 14:00,2023-10-06 14:30,PED-107,Curativos,Bandaids e gazes pequenas.
+2023-10-09 09:00,Santa Casa,Mariana,Respondida,3300.00,2023-10-09 10:00,2023-10-09 13:00,,Instrumental,Pinças e tesouras cirúrgicas.
+2023-10-09 11:30,Hospital Delta,Ana,Pedido,1200.00,2023-10-09 12:00,2023-10-09 14:00,PED-108,Uniforme,Aventais descartáveis.
+2023-10-09 15:00,Clínica Life,Carlos,Atrasada,900.00,,,,Nebulizador,Aparelhos de inalação.
+2023-10-10 08:15,Hospital Alpha,Mariana,Pendente,4500.00,2023-10-10 09:00,,,Oxímetro,Oxímetros de pulso.
+2023-10-10 10:45,Lab Exame,Ana,Respondida,700.00,2023-10-10 11:30,2023-10-10 15:00,,Lâminas,Lâminas para microscopia.
+2023-10-10 14:00,Hospital Beta,Carlos,Pedido,15000.00,2023-10-10 14:15,2023-10-10 16:30,PED-109,Raio-X Portátil,Cotação equipamento digital.
+2023-10-11 09:30,Santa Casa,Mariana,Respondida,2200.00,2023-10-11 11:00,2023-10-11 14:00,,Cadeira Rodas,Cadeiras de rodas padrão.
+2023-10-11 12:00,Clínica Sorriso,Ana,Pendente,350.00,2023-10-11 14:00,,,Odonto,Resinas compostas.
+2023-10-11 15:45,Hospital Alpha,Carlos,Atrasada,1800.00,,,,Estetoscópio,Estetoscópios Littmann.
+2023-10-12 08:00,Lab Exame,Mariana,Pedido,1100.00,2023-10-12 08:15,2023-10-12 09:30,PED-110,Pipetas,Pipetas automáticas.
+2023-10-13 10:00,Hospital Delta,Ana,Respondida,4800.00,2023-10-13 11:30,2023-10-13 15:00,,Móveis,Armário vitrine para medicamentos.
+2023-10-13 13:30,Clínica Life,Carlos,Pendente,200.00,2023-10-13 14:00,,,Termômetro,Termômetro digital simples.
+2023-10-16 09:15,Santa Casa,Mariana,Pedido,6000.00,2023-10-16 09:30,2023-10-16 11:00,PED-111,Balança,Balança pediátrica e adulta.
+2023-10-16 11:45,Hospital Beta,Ana,Atrasada,2500.00,,,,Compressas,Compressas de gaze 10x10.
+2023-10-16 14:30,Hospital Alpha,Carlos,Respondida,1300.00,2023-10-16 15:30,2023-10-16 17:00,,Lanternas,Lanternas clínicas.
+2023-10-17 08:45,Lab Exame,Mariana,Pendente,950.00,2023-10-17 10:00,,,Microscópio,Lâmpada para microscópio.
+2023-10-17 11:00,Clínica Sorriso,Ana,Pedido,420.00,2023-10-17 11:15,2023-10-17 12:30,PED-112,Algodão,Rolos de algodão 500g.
+2023-10-17 15:15,Hospital Delta,Carlos,Respondida,7000.00,2023-10-17 16:00,2023-10-18 09:30,,Autoclave,Manutenção preventiva.
+2023-10-18 09:00,Santa Casa,Mariana,Atrasada,1500.00,,,,Lençol,Lençóis descartáveis com elástico.
+2023-10-18 13:00,Clínica Life,Ana,Pendente,800.00,2023-10-18 14:00,,,Otoscópio,Conjunto diagnóstico.
+2023-10-19 10:30,Hospital Alpha,Carlos,Pedido,2300.00,2023-10-19 10:45,2023-10-19 12:00,PED-113,Suporte Soro,Suportes de soro inox.
+2023-10-19 14:15,Lab Exame,Mariana,Respondida,600.00,2023-10-19 15:00,2023-10-19 16:30,,Placas Petri,Placas de vidro.
+2023-10-20 08:45,Hospital Beta,Ana,Pendente,12000.00,2023-10-20 10:00,,,Ventilador,Ventilador pulmonar mecânico.
+2023-10-20 11:30,Santa Casa,Carlos,Pedido,500.00,2023-10-20 11:45,2023-10-20 13:00,PED-114,Esparadrapo,Fitas microporosas.
+2023-10-20 15:00,Clínica Sorriso,Mariana,Respondida,280.00,2023-10-20 16:00,2023-10-21 10:00,,Luvas,Luvas de vinil.
