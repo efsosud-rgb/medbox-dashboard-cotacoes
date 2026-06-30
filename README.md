@@ -36,9 +36,9 @@ Este projeto é um dashboard executivo desenvolvido para monitorar o desempenho 
 
 As configurações principais do dashboard podem ser ajustadas em `assets/js/config.js`:
 
-- **URL do CSV**: Link para a planilha Google ou servidor de dados.
+- **`csvUrl`**: Link para a planilha Google ou servidor de dados.
 - **SLA**: Limites de tempo (horas) para os status "No Prazo", "Atenção" e "Atrasado".
-- **Fallback**: Se a URL principal falhar, o sistema carrega automaticamente `data/exemplo-cotacoes.csv`.
+- **Fallback**: Se a URL principal (`csvUrl`) falhar ou retornar dados inválidos (como HTML de login), o sistema carrega automaticamente `data/exemplo-cotacoes.csv`.
 
 ## 📂 Estrutura do Projeto
 
@@ -60,11 +60,16 @@ As configurações principais do dashboard podem ser ajustadas em `assets/js/con
 
 ## 📝 Como Usar
 
-1. Clone o repositório.
-2. Abra o arquivo `index.html` em qualquer navegador moderno.
-3. Para usar seus próprios dados, aponte a `CSV_URL` em `assets/js/config.js` para o link de exportação do seu CSV ou substitua o arquivo `data/exemplo-cotacoes.csv`.
+1. **Clone o repositório**.
+2. **Inicie um servidor local** (Recomendado).
+   Para evitar bloqueios de segurança do navegador (CORS/Filesystem), utilize um servidor de desenvolvimento. Exemplos:
+   - Python: `python -m http.server 8000`
+   - Node.js: `npx serve .`
+   - VS Code: Extensão "Live Server".
+3. **Acesse o Dashboard**: Navegue para `http://localhost:8000` (ou a porta indicada).
+4. **Customização**: Para usar seus próprios dados, atualize a variável `csvUrl` em `assets/js/config.js` com o link de exportação do seu CSV.
 
-**Dica para Google Sheets:** Use a opção "Publicar na Web" -> "Valores separados por vírgula (.csv)" e cole o link gerado no `config.js`.
+**Dica para Google Sheets:** Vá em *Arquivo > Compartilhar > Publicar na Web*. Escolha a aba desejada e mude o formato para "Valores separados por vírgula (.csv)". Cole o link gerado no `config.js`.
 
 ## ⚖️ Licença
 

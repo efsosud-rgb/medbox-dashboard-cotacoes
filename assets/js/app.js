@@ -50,7 +50,20 @@ const App = {
             let response = await fetch(CONFIG.csvUrl);
             if (!response.ok) throw new Error('Falha ao carregar CSV remoto');
 
+            // Validação de tipo para evitar HTML (telas de login/erro do Google)
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType.includes('text/html')) {
+                throw new Error('A URL retornou HTML em vez de CSV (verifique permissões ou link)');
+            }
+
             const csvText = await response.text();
+
+            // Validação básica de conteúdo para garantir que não é HTML disfarçado
+            const trimmed = csvText.trim().toLowerCase();
+            if (trimmed.startsWith('<!doctype') || trimmed.startsWith('<html')) {
+                throw new Error('O conteúdo retornado é HTML, não CSV');
+            }
+
             this.parseCSV(csvText);
         } catch (error) {
             console.warn('Usando CSV de fallback devido ao erro:', error);
