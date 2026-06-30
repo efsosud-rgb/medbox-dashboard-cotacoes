@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedBox Dashboard | Gestão de Cotações</title>
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Bibliotecas (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</head>
+<body>
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Top Navbar -->
+    <nav class="navbar">
+        <div class="brand">
+            Med<span class="brand-red">Box</span> | <small style="font-weight: normal; margin-left: 10px; font-size: 0.9rem;">Dashboard de Cotações</small>
+        </div>
+        <div>
+            <span id="currentDate"></span>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+
+        <!-- Filtros -->
+        <div class="filter-bar">
+            <form id="filterForm" onsubmit="return false;">
+                <div class="row" style="gap: 15px; align-items: flex-end;">
+                    <div style="flex: 2; min-width: 200px;">
+                        <label class="kpi-label">Busca Geral</label>
+                        <input type="text" id="searchGeneral" placeholder="Pesquisar por cliente, responsável, assunto..." style="width: 100%; padding: 8px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="kpi-label">Período Início</label>
+                        <input type="date" id="filterDateStart" style="width: 100%; padding: 8px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="kpi-label">Período Fim</label>
+                        <input type="date" id="filterDateEnd" style="width: 100%; padding: 8px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="kpi-label">Cliente</label>
+                        <select id="filterCliente" style="width: 100%; padding: 8px;"></select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="kpi-label">Responsável</label>
+                        <select id="filterResponsavel" style="width: 100%; padding: 8px;"></select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="kpi-label">Status</label>
+                        <select id="filterStatus" style="width: 100%; padding: 8px;"></select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="kpi-label">SLA</label>
+                        <select id="filterSLA" style="width: 100%; padding: 8px;">
+                            <option value="">Todos</option>
+                            <option value="NO PRAZO">No Prazo</option>
+                            <option value="ATENÇÃO">Atenção</option>
+                            <option value="ATRASADO">Atrasado</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; gap: 5px;">
+                        <button type="button" id="btnFiltrar" style="background: var(--medbox-navy); color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px;">Filtrar</button>
+                        <button type="button" id="btnLimpar" style="background: #ccc; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px;">Limpar</button>
+                    </div>
+                </div>
+            </form>
+            <div style="margin-top: 10px; display: flex; gap: 10px;">
+                <button id="btnPendentes" style="background: #fff; border: 1px solid #ddd; padding: 5px 10px; font-size: 0.75rem; cursor: pointer;">Somente Pendentes</button>
+                <button id="btnRespondidas" style="background: #fff; border: 1px solid #ddd; padding: 5px 10px; font-size: 0.75rem; cursor: pointer;">Somente Respondidas</button>
+                <button id="btnPedidos" style="background: #fff; border: 1px solid #ddd; padding: 5px 10px; font-size: 0.75rem; cursor: pointer;">Somente Pedidos</button>
+            </div>
+        </div>
+
+        <!-- KPIs Principais -->
+        <div class="row">
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Recebidas</span>
+                    <span class="kpi-value" id="kpiTotal">0</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Respondidas</span>
+                    <span class="kpi-value" id="kpiRespondidas">0</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Pendentes</span>
+                    <span class="kpi-value" id="kpiPendentes">0</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card kpi-red">
+                    <span class="kpi-label">Atrasadas</span>
+                    <span class="kpi-value" id="kpiAtrasadas">0</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Taxa Resposta</span>
+                    <span class="kpi-value" id="kpiTaxaResposta">0%</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Taxa Conversão</span>
+                    <span class="kpi-value" id="kpiTaxaConversao">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Valor Cotado</span>
+                    <span class="kpi-value" id="kpiValorTotal">R$ 0,00</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Ticket Médio</span>
+                    <span class="kpi-value" id="kpiTicketMedio">R$ 0,00</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Avg. 1ª Resposta</span>
+                    <span class="kpi-value" id="kpiMediaResposta">0h</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Avg. Envio Cotação</span>
+                    <span class="kpi-value" id="kpiMediaCotacao">0h</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card">
+                    <span class="kpi-label">Top Cliente</span>
+                    <span class="kpi-value" id="kpiTopCliente" style="font-size: 1rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">-</span>
+                </div>
+            </div>
+            <div class="col-kpi">
+                <div class="card kpi-card kpi-red">
+                    <span class="kpi-label">Líder Pendências</span>
+                    <span class="kpi-value" id="kpiTopPendencias" style="font-size: 1.2rem;">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Linha de Gráficos e Infográficos -->
+        <div class="row">
+            <!-- Semáforo e Progress Bars -->
+            <div class="col" style="flex: 0 0 300px;">
+                <div class="card">
+                    <div class="card-header">Status Operacional</div>
+                    <div class="card-body" style="text-align: center;">
+                        <div id="slaTrafficLight" class="traffic-light"></div>
+                        <h4 id="slaTrafficStatus">Carregando...</h4>
+                        <hr>
+                        <h5 class="kpi-label" style="text-align: left;">Progresso por Responsável</h5>
+                        <div id="progressBarsContainer" style="text-align: left; margin-top: 15px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficos Principais -->
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Funil de Atendimento</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartFunnel"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Cotações por Status</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartStatus"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Volume por Responsável</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartResponsavel"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Pendências por Responsável</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartPendencias"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Heatmap (Dia da Semana)</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartHeatmap"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Análises Inteligentes -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card" style="background-color: #00486C; color: white;">
+                    <div class="card-header" style="background-color: #003a57; color: white; border-bottom: none;">
+                        Análises Inteligentes da Operação
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 style="color: #ff8c94;">Principais Alertas e Gargalos</h5>
+                                <div id="insightAlerts"></div>
+                            </div>
+                            <div class="col">
+                                <h5 style="color: #8ce9ff;">Sugestões de Ação</h5>
+                                <div id="insightSuggestions"></div>
+                            </div>
+                            <div class="col">
+                                <h5 style="color: #ffd48c;">Cotações Críticas para Priorizar</h5>
+                                <div id="insightCritical"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Top 10 Clientes (Quantidade)</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartTopClientesVol"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Top 10 Clientes (Valor R$)</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartTopClientesVal"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Evolução Mensal (Volume)</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartEvolucao"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">SLA por Responsável (Média Horas)</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartSLAResponsavel"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Conversão por Responsável (%)</div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="chartConversaoResponsavel"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">Valor Cotado por Mês</div>
+                    <div class="card-body">
+                        <div class="chart-container" style="height: 300px;"><canvas id="chartValorMensal"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela Analítica -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        Tabela Analítica de Cotações
+                        <span class="badge bg-secondary" id="filteredCount">0</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="sortable" data-sort="data">Data</th>
+                                        <th class="sortable" data-sort="cliente">Cliente</th>
+                                        <th class="sortable" data-sort="status">Status</th>
+                                        <th class="sortable" data-sort="responsavel">Responsável</th>
+                                        <th class="sortable" data-sort="valor">Valor</th>
+                                        <th class="sortable" data-sort="sla">SLA</th>
+                                        <th>Assunto</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts da Aplicação -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/analytics.js"></script>
+    <script src="assets/js/charts.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <script>
+        // Exibe data atual no topo
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    </script>
+</body>
+</html>
