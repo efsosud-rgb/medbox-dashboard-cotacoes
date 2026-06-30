@@ -5,7 +5,7 @@ const Analytics = {
     /**
      * Processa os dados brutos e calcula todos os KPIs e métricas
      */
-    process(data) {
+    process(data, colMap) {
         if (!data || data.length === 0) return this.getEmptyState();
 
         const stats = {
@@ -27,14 +27,14 @@ const Analytics = {
         };
 
         data.forEach(item => {
-            // Normalização de dados
-            const valor = parseFloat(item.Valor) || 0;
-            const status = (item.Status || 'Pendente').trim();
-            const responsavel = (item.Responsável || 'Não Atribuído').trim();
-            const cliente = (item.Cliente || 'Desconhecido').trim();
-            const dataCriacao = item.Data;
-            const dataPrimeiraResposta = item['Primeira Resposta'];
-            const dataCotacaoEnviada = item['Cotação Enviada'];
+            // Normalização de dados usando o mapeamento de colunas
+            const valor = Utils.parseCurrency(item[colMap.valor]);
+            const status = (item[colMap.status] || 'Pendente').trim();
+            const responsavel = (item[colMap.responsavel] || 'Não Atribuído').trim();
+            const cliente = (item[colMap.cliente] || 'Desconhecido').trim();
+            const dataCriacao = item[colMap.dataRecebimento];
+            const dataPrimeiraResposta = item[colMap.primeiraResposta];
+            const dataCotacaoEnviada = item[colMap.cotacaoEnviada];
 
             stats.valorTotal += valor;
 
@@ -99,7 +99,7 @@ const Analytics = {
                         if (horasPassadas > 24) {
                             stats.cotacoesCriticas.push({
                                 cliente, responsavel, valor, horasPassadas,
-                                assunto: item.Assunto, data: dataCriacao
+                                assunto: item[colMap.assunto], data: dataCriacao
                             });
                         }
                     }

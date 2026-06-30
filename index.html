@@ -48,6 +48,10 @@
                         <input type="date" id="filterDateEnd" style="width: 100%; padding: 8px;">
                     </div>
                     <div style="flex: 1;">
+                        <label class="kpi-label">Cliente</label>
+                        <select id="filterCliente" style="width: 100%; padding: 8px;"></select>
+                    </div>
+                    <div style="flex: 1;">
                         <label class="kpi-label">Responsável</label>
                         <select id="filterResponsavel" style="width: 100%; padding: 8px;"></select>
                     </div>
@@ -315,12 +319,12 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Data</th>
-                                        <th>Cliente</th>
-                                        <th>Status</th>
-                                        <th>Responsável</th>
-                                        <th>Valor</th>
-                                        <th>SLA</th>
+                                        <th class="sortable" data-sort="data">Data</th>
+                                        <th class="sortable" data-sort="cliente">Cliente</th>
+                                        <th class="sortable" data-sort="status">Status</th>
+                                        <th class="sortable" data-sort="responsavel">Responsável</th>
+                                        <th class="sortable" data-sort="valor">Valor</th>
+                                        <th class="sortable" data-sort="sla">SLA</th>
                                         <th>Assunto</th>
                                     </tr>
                                 </thead>

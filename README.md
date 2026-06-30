@@ -1,68 +1,71 @@
-# MedBox Dashboard | Gestão de Cotações
+# MedBox - Dashboard de Cotações
 
-Dashboard profissional para gestão de respostas às cotações recebidas da MedBox.
+Dashboard profissional para gestão e análise de respostas às cotações recebidas da MedBox.
 
-## 🚀 Funcionalidades
+## 🚀 Visão Geral
 
-- **KPIs em Tempo Real**: Total de cotações, respondidas, pendentes, atrasadas, valor total, ticket médio e taxa de conversão.
-- **Filtros Avançados**: Busca geral, período, cliente, responsável, status, SLA e filtros rápidos (somente pendentes/pedidos).
-- **Gráficos Interativos**: Funil de status, distribuição por responsável, evolução mensal, SLA e conversão.
-- **Análises Inteligentes**: Alertas automáticos sobre cotações críticas, gargalos de SLA e maiores volumes.
-- **Tabela Analítica**: Detalhamento completo das cotações com destaque visual de SLA.
+Este projeto é um dashboard executivo desenvolvido para monitorar o desempenho da equipe de vendas no tratamento de cotações. Ele permite visualizar KPIs críticos, gargalos operacionais e a eficiência do SLA (Service Level Agreement).
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **HTML5, CSS3, JavaScript (ES6+)**
-- **Chart.js**: Para visualização de dados.
-- **PapaParse**: Para leitura e processamento de arquivos CSV.
-- **Google Sheets**: Como fonte de dados remota.
+- **HTML5 & CSS3**: Estrutura e estilização (Design System ERP).
+- **JavaScript (Pure JS)**: Lógica de negócios e manipulação de dados.
+- **[Chart.js](https://www.chartjs.org/)**: Visualização de dados e gráficos interativos.
+- **[PapaParse](https://www.papaparse.com/)**: Processamento eficiente de arquivos CSV.
+- **[Google Fonts](https://fonts.google.com/)**: Tipografia (Inter).
 
-## 📁 Estrutura do Projeto
+## 📊 Funcionalidades Principais
 
-```text
-.
-├── index.html              # Página principal do dashboard
-├── README.md               # Documentação
-├── assets/
-│   ├── css/
-│   │   └── style.css       # Estilização (Identidade MedBox)
-│   └── js/
-│       ├── config.js       # Configurações de URLs e SLA
-│       ├── utils.js        # Utilitários de formatação e datas
-│       ├── charts.js       # Lógica dos gráficos (Chart.js)
-│       ├── analytics.js    # Processamento de dados e KPIs
-│       └── app.js          # Coordenação principal da aplicação
-└── data/
-    └── exemplo-cotacoes.csv # Dados de fallback/exemplo
-```
+- **Mapeamento Inteligente de Colunas**: Detecta automaticamente as colunas do CSV (Data, Cliente, Responsável, Status, Valor, etc) com base em palavras-chave, permitindo flexibilidade no formato do arquivo original.
+- **KPIs em Tempo Real**:
+    - Total de cotações, respondidas, pendentes e atrasadas.
+    - Taxas de resposta e conversão em pedido.
+    - Valor total cotado e ticket médio.
+    - Identificação automática do maior cliente e responsável com mais pendências.
+- **Gráficos Avançados**:
+    - Funil de vendas (Recebidas -> Respondidas -> Pedidos).
+    - Distribuição por status e responsável.
+    - Evolução mensal de volume e valores.
+    - Heatmap de demanda por dia da semana.
+    - SLA e Conversão por responsável.
+- **Filtros Dinâmicos**: Busca global, período, cliente, responsável, status e filtros rápidos (Somente Pendentes, Respondidas ou Pedidos).
+- **Análises Inteligentes**: Seção dedicada a alertas automáticos, sugestões de ação e identificação de cotações críticas.
+- **Tabela Analítica**: Listagem detalhada com ordenação interativa e indicadores visuais de SLA (Verde: No Prazo, Amarelo: Atenção, Vermelho: Atrasado).
 
 ## ⚙️ Configuração
 
-Para alterar a fonte de dados ou os limites de SLA, edite o arquivo `assets/js/config.js`:
+As configurações principais do dashboard podem ser ajustadas em `assets/js/config.js`:
 
-```javascript
-const CONFIG = {
-    csvUrl: 'SUA_URL_DO_CSV_AQUI',
-    sla: {
-        onTimeLimit: 2, // Horas para "No Prazo"
-        attentionLimit: 6, // Horas para "Atenção"
-    }
-};
+- **URL do CSV**: Link para a planilha Google ou servidor de dados.
+- **SLA**: Limites de tempo (horas) para os status "No Prazo", "Atenção" e "Atrasado".
+- **Fallback**: Se a URL principal falhar, o sistema carrega automaticamente `data/exemplo-cotacoes.csv`.
+
+## 📂 Estrutura do Projeto
+
+```text
+├── index.html              # Estrutura principal do Dashboard
+├── README.md               # Documentação
+├── assets/
+│   ├── css/
+│   │   └── style.css       # Estilização profissional e responsiva
+│   └── js/
+│       ├── config.js       # Parâmetros e configurações de SLA/URL
+│       ├── utils.js        # Utilitários de parsing (Data/Moeda) e DOM
+│       ├── charts.js       # Configurações de gráficos Chart.js
+│       ├── analytics.js    # Lógica de cálculo de KPIs e alertas
+│       └── app.js          # Orquestração de dados e UI
+└── data/
+    └── exemplo-cotacoes.csv # Dados de exemplo para demonstração
 ```
 
-## 🖥️ Como Executar
+## 📝 Como Usar
 
 1. Clone o repositório.
-2. Certifique-se de que os arquivos estão em um ambiente onde o JavaScript pode ser executado (navegador moderno).
-3. Devido a restrições de CORS ao carregar arquivos locais via JavaScript, recomenda-se usar um servidor local (ex: VS Code Live Server, `npx serve`, etc.).
-4. O dashboard tentará carregar o CSV da URL configurada. Se falhar, carregará automaticamente os dados de exemplo em `data/exemplo-cotacoes.csv`.
+2. Abra o arquivo `index.html` em qualquer navegador moderno.
+3. Para usar seus próprios dados, aponte a `CSV_URL` em `assets/js/config.js` para o link de exportação do seu CSV ou substitua o arquivo `data/exemplo-cotacoes.csv`.
 
-## 🎨 Identidade Visual
+**Dica para Google Sheets:** Use a opção "Publicar na Web" -> "Valores separados por vírgula (.csv)" e cole o link gerado no `config.js`.
 
-O projeto segue rigorosamente as cores da MedBox:
-- **Vermelho**: #D80024
-- **Azul Marinho**: #00486C
-- **Fundo**: #F4F6F8
+## ⚖️ Licença
 
----
-Desenvolvido para gestão executiva e otimização da operação comercial.
+Este projeto é de uso interno da MedBox.

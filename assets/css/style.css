@@ -116,6 +116,34 @@ body {
     font-size: 0.9rem;
 }
 
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 25px !important;
+}
+
+.sortable:after {
+    content: '↕';
+    position: absolute;
+    right: 8px;
+    color: #ccc;
+}
+
+.sort-asc:after {
+    content: '↑';
+    color: var(--medbox-navy);
+}
+
+.sort-desc:after {
+    content: '↓';
+    color: var(--medbox-navy);
+}
+
+.sortable:hover {
+    background-color: #eee;
+}
+
 .table td {
     padding: 12px;
     border-bottom: 1px solid var(--border-color);
